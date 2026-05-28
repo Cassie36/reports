@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>何昀纾 · 试用期述职报告</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+SC:wght@300;400;500;600;700;900&display=swap');
+
+  :root {
+    --bg: #fafbfd;
+    --bg2: #f1f5f9;
+    --surface: #ffffff;
+    --border: #e2e8f0;
+    --border-light: #f1f5f9;
+    --text: #0f172a;
+    --text2: #475569;
+    --text3: #94a3b8;
+    --blue: #3b82f6;
+    --blue-deep: #1e40af;
+    --indigo: #6366f1;
+    --purple: #8b5cf6;
+    --green: #10b981;
+    --emerald: #059669;
+    --orange: #f59e0b;
+    --red: #ef4444;
+    --cyan: #06b6d4;
+    --pink: #ec4899;
+    --grad-hero: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --grad-blue: linear-gradient(135deg, #3b82f6, #6366f1);
+    --grad-green: linear-gradient(135deg, #10b981, #06b6d4);
+    --grad-warm: linear-gradient(135deg, #f59e0b, #ef4444);
+    --grad-purple: linear-gradient(135deg, #8b5cf6, #ec4899);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,.04), 0 1px 2px rgba(0,0,0,.06);
+    --shadow-md: 0 4px 20px rgba(0,0,0,.06), 0 1px 3px rgba(0,0,0,.04);
+    --shadow-lg: 0 10px 40px rgba(0,0,0,.08), 0 2px 8px rgba(0,0,0,.04);
+    --shadow-xl: 0 20px 60px rgba(0,0,0,.1);
+    --radius: 16px;
+    --radius-sm: 10px;
+    --radius-xs: 6px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', 'Noto Sans SC', -apple-system, 'PingFang SC', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    font-size: 15px;
+  }
+
+  /* ── Nav ── */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    height: 56px; display: flex; align-items: center; justify-content: space-between;
+    padding: 0 40px;
+    background: rgba(250,251,253,.85);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    transition: box-shadow .3s;
+  }
+  .nav.scrolled { box-shadow: var(--shadow-sm); }
+  .nav-brand { font-size: .9rem; font-weight: 700; color: var(--text); letter-spacing: -.01em; }
+  .nav-brand span { background: var(--grad-blue); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .nav-links { display: flex; gap: 8px; list-style: none; }
+  .nav-links a {
+    color: var(--text2); text-decoration: none; font-size: .82rem; font-weight: 500;
+    padding: 6px 14px; border-radius: 8px; transition: all .2s;
+  }
+  .nav-links a:hover { background: var(--bg2); color: var(--text); }
+  .nav-links a.active { background: var(--text); color: #fff; }
+
+  /* ── Scroll progress ── */
+  .scroll-progress { position: fixed; top: 56px; left: 0; height: 2px; background: var(--grad-blue); z-index: 101; border-radius: 0 2px 2px 0; }
+
+  /* ── Sections ── */
+  .section { padding: 100px 60px; max-width: 1200px; margin: 0 auto; }
+  @media (max-width: 768px) { .section { padding: 64px 24px; } }
+
+  /* ── Reveal ── */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1); }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-d1 { transition-delay: .08s; }
+  .reveal-d2 { transition-delay: .16s; }
+  .reveal-d3 { transition-delay: .24s; }
+  .reveal-d4 { transition-delay: .32s; }
+
+  /* ── Hero ── */
+  .hero {
+    min-height: 100vh; display: flex; flex-direction: column;
+    justify-content: center; align-items: center; text-align: center;
+    padding: 0 40px; position: relative; overflow: hidden;
+    background: linear-gradient(180deg, #f0f4ff 0%, var(--bg) 100%);
+  }
+  .hero::before {
+    content: ''; position: absolute; top: -200px; right: -200px;
+    width: 700px; height: 700px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(99,102,241,.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: ''; position: absolute; bottom: -100px; left: -200px;
+    width: 500px; height: 500px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(59,130,246,.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 18px; border-radius: 99px;
+    background: var(--surface); border: 1px solid var(--border);
+    font-size: .82rem; font-weight: 500; color: var(--text2);
+    box-shadow: var(--shadow-sm); position: relative; margin-bottom: 32px;
+  }
+  .hero-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+  .hero h1 {
+    font-size: clamp(2.8rem, 6vw, 4.5rem); font-weight: 800;
+    letter-spacing: -.03em; line-height: 1.1; position: relative;
+    color: var(--text);
+  }
+  .hero h1 .accent {
+    background: var(--grad-hero); -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .hero-sub {
+    font-size: 1.15rem; color: var(--text2); margin-top: 20px;
+    font-weight: 400; position: relative; max-width: 560px; line-height: 1.7;
+  }
+  .hero-chips {
+    display: flex; gap: 10px; margin-top: 36px; flex-wrap: wrap; justify-content: center; position: relative;
+  }
+  .chip {
+    padding: 8px 20px; border-radius: 99px; font-size: .82rem; font-weight: 500;
+    background: var(--surface); border: 1px solid var(--border);
+    color: var(--text2); box-shadow: var(--shadow-sm);
+  }
+
+  /* ── Stat cards ── */
+  .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  @media (max-width: 768px) { .stat-grid { grid-template-columns: repeat(2, 1fr); } }
+  .stat-card {
+    background: var(--surface); border-radius: var(--radius);
+    padding: 32px 24px; text-align: center;
+    border: 1px solid var(--border); box-shadow: var(--shadow-sm);
+    transition: transform .3s, box-shadow .3s;
+    position: relative; overflow: hidden;
+  }
+  .stat-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+  .stat-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  }
+  .stat-card:nth-child(1)::before { background: var(--grad-blue); }
+  .stat-card:nth-child(2)::before { background: var(--grad-green); }
+  .stat-card:nth-child(3)::before { background: var(--grad-warm); }
+  .stat-card:nth-child(4)::before { background: var(--grad-purple); }
+  .stat-num {
+    font-size: 2.8rem; font-weight: 800; letter-spacing: -.03em; line-height: 1;
+  }
+  .stat-card:nth-child(1) .stat-num { color: var(--blue); }
+  .stat-card:nth-child(2) .stat-num { color: var(--green); }
+  .stat-card:nth-child(3) .stat-num { color: var(--orange); }
+  .stat-card:nth-child(4) .stat-num { color: var(--purple); }
+  .stat-label { font-size: .92rem; font-weight: 600; color: var(--text); margin-top: 10px; }
+  .stat-sub { font-size: .78rem; color: var(--text3); margin-top: 4px; }
+
+  /* ── Section header ── */
+  .sec-header { margin-bottom: 56px; }
+  .sec-tag {
+    display: inline-block; font-size: .72rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .1em;
+    padding: 4px 12px; border-radius: 6px; margin-bottom: 16px;
+  }
+  .sec-header h2 {
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 800;
+    letter-spacing: -.02em; line-height: 1.15; color: var(--text);
+  }
+  .sec-header h2 .light { color: var(--text3); font-weight: 600; }
+  .sec-header p {
+    font-size: 1.05rem; color: var(--text2); max-width: 640px;
+    margin-top: 14px; line-height: 1.7;
+  }
+
+  /* ── Cards ── */
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 32px;
+    box-shadow: var(--shadow-sm); transition: transform .3s, box-shadow .3s;
+  }
+  .card:hover { box-shadow: var(--shadow-md); }
+  .card-title {
+    font-size: .85rem; font-weight: 600; color: var(--text2);
+    text-transform: uppercase; letter-spacing: .04em; margin-bottom: 20px;
+  }
+
+  /* ── Grid ── */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  @media (max-width: 768px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+
+  /* ── Divider ── */
+  .divider { height: 1px; background: var(--border); max-width: 1200px; margin: 0 auto; }
+
+  /* ── Timeline ── */
+  .timeline { position: relative; padding-left: 40px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 8px; top: 8px; bottom: 8px;
+    width: 2px; background: linear-gradient(to bottom, var(--blue), var(--purple), var(--orange), var(--green));
+    border-radius: 2px;
+  }
+  .tl-item { position: relative; padding-bottom: 40px; }
+  .tl-item:last-child { padding-bottom: 0; }
+  .tl-item::before {
+    content: ''; position: absolute; left: -36px; top: 6px;
+    width: 12px; height: 12px; border-radius: 50%;
+    border: 3px solid var(--blue); background: var(--surface);
+  }
+  .tl-item:nth-child(2)::before { border-color: var(--purple); }
+  .tl-item:nth-child(3)::before { border-color: var(--orange); }
+  .tl-item:nth-child(4)::before { border-color: var(--green); }
+  .tl-date {
+    font-size: .78rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .06em; margin-bottom: 4px;
+  }
+  .tl-item:nth-child(1) .tl-date { color: var(--blue); }
+  .tl-item:nth-child(2) .tl-date { color: var(--purple); }
+  .tl-item:nth-child(3) .tl-date { color: var(--orange); }
+  .tl-item:nth-child(4) .tl-date { color: var(--green); }
+  .tl-title { font-size: 1.05rem; font-weight: 700; color: var(--text); }
+  .tl-desc { font-size: .9rem; color: var(--text2); margin-top: 4px; line-height: 1.6; }
+
+  /* ── Module grid ── */
+  .mod-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
+  .mod-card {
+    border-radius: var(--radius-sm); padding: 18px; position: relative;
+    transition: transform .2s, box-shadow .3s; cursor: default; overflow: hidden;
+  }
+  .mod-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+  .mod-deep {
+    background: linear-gradient(135deg, rgba(59,130,246,.06), rgba(99,102,241,.06));
+    border: 1px solid rgba(59,130,246,.15);
+  }
+  .mod-stable { background: var(--surface); border: 1px solid var(--border); }
+  .mod-pending { background: var(--bg2); border: 1px dashed var(--border); }
+  .mod-badge {
+    position: absolute; top: 10px; right: 10px;
+    font-size: .6rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .06em; padding: 2px 8px; border-radius: 4px;
+  }
+  .mod-deep .mod-badge { background: rgba(59,130,246,.1); color: var(--blue); }
+  .mod-stable .mod-badge { background: rgba(16,185,129,.08); color: var(--emerald); }
+  .mod-pending .mod-badge { background: rgba(148,163,184,.12); color: var(--text3); }
+  .mod-id { font-size: .72rem; color: var(--text3); font-weight: 600; }
+  .mod-name { font-size: .9rem; font-weight: 600; color: var(--text); margin-top: 2px; }
+  .mod-stat { font-size: .78rem; color: var(--text2); margin-top: 6px; }
+
+  /* ── Donut ── */
+  .donut-wrap { display: flex; align-items: center; gap: 32px; flex-wrap: wrap; justify-content: center; }
+  .donut-legend { display: flex; flex-direction: column; gap: 10px; }
+  .dl-item { display: flex; align-items: center; gap: 10px; font-size: .88rem; color: var(--text2); }
+  .dl-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+
+  /* ── Bar charts ── */
+  .bar-group { display: flex; flex-direction: column; gap: 18px; }
+  .bar-label { display: flex; justify-content: space-between; font-size: .85rem; margin-bottom: 6px; }
+  .bar-label span:first-child { font-weight: 500; color: var(--text2); }
+  .bar-label span:last-child { font-weight: 700; color: var(--text); }
+  .bar-track { height: 8px; background: var(--bg2); border-radius: 99px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 99px; width: 0; transition: width 1.2s cubic-bezier(.22,1,.36,1); }
+
+  /* ── PE grid ── */
+  .pe-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; }
+  .pe-item {
+    border-radius: var(--radius-sm); padding: 16px; text-align: center;
+    background: var(--surface); border: 1px solid var(--border);
+    transition: transform .2s, box-shadow .3s; cursor: default;
+  }
+  .pe-item:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+  .pe-item.is-m11 { border-color: rgba(59,130,246,.25); background: rgba(59,130,246,.03); }
+  .pe-name { font-size: .72rem; color: var(--text3); font-weight: 500; word-break: break-all; }
+  .pe-ver { font-size: 1.6rem; font-weight: 800; margin: 6px 0 4px; letter-spacing: -.02em; }
+  .pe-item.is-m11 .pe-ver { color: var(--blue); }
+  .pe-item:not(.is-m11) .pe-ver { color: var(--text3); }
+  .pe-type { font-size: .65rem; color: var(--text3); text-transform: uppercase; letter-spacing: .06em; }
+
+  /* ── Cost table ── */
+  .data-table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+  .data-table thead th {
+    padding: 14px 16px; text-align: left; font-weight: 600;
+    font-size: .72rem; text-transform: uppercase; letter-spacing: .06em;
+    color: var(--text3); border-bottom: 2px solid var(--border);
+  }
+  .data-table tbody td {
+    padding: 14px 16px; border-bottom: 1px solid var(--border-light); color: var(--text2);
+  }
+  .data-table tbody tr:hover { background: rgba(59,130,246,.02); }
+  .data-table tbody tr:last-child td { border-bottom: none; }
+  .cost-old { color: var(--text3); text-decoration: line-through; }
+  .cost-new { color: var(--emerald); font-weight: 700; }
+  .badge { display: inline-block; font-size: .7rem; font-weight: 700; padding: 3px 10px; border-radius: 99px; }
+  .badge-green { background: rgba(16,185,129,.1); color: var(--emerald); }
+  .badge-red { background: rgba(239,68,68,.08); color: var(--red); }
+
+  /* ── Skill cards ── */
+  .skill-list { display: flex; flex-direction: column; gap: 12px; }
+  .skill-item {
+    display: flex; align-items: center; gap: 16px;
+    padding: 16px 20px; border-radius: var(--radius-sm);
+    background: var(--bg2); border: 1px solid transparent;
+    transition: border-color .2s, background .2s;
+  }
+  .skill-item:hover { border-color: var(--border); background: var(--surface); }
+  .skill-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    font-size: 1.2rem;
+  }
+  .skill-name { font-size: .9rem; font-weight: 600; color: var(--text); }
+  .skill-desc { font-size: .78rem; color: var(--text3); margin-top: 1px; }
+
+  /* ── 9-Grid ── */
+  .nine-grid-container { display: flex; justify-content: center; padding: 8px 0; }
+  .nine-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; max-width: 480px; width: 100%; }
+  .ng-cell {
+    border-radius: var(--radius-sm); padding: 20px 14px; text-align: center;
+    transition: transform .2s; cursor: default; position: relative;
+  }
+  .ng-cell:hover { transform: scale(1.03); z-index: 2; }
+  .ng-label { font-size: .88rem; font-weight: 600; color: var(--text); }
+  .ng-tag { font-size: .72rem; color: var(--text3); margin-top: 3px; }
+  .ng-idx { position: absolute; top: 6px; right: 10px; font-size: 1.1rem; font-weight: 800; opacity: .08; }
+  .ng-cold { background: var(--bg2); border: 1px solid var(--border); }
+  .ng-mid { background: rgba(59,130,246,.04); border: 1px solid rgba(59,130,246,.12); }
+  .ng-warm { background: rgba(245,158,11,.05); border: 1px solid rgba(245,158,11,.15); }
+  .ng-hot { background: linear-gradient(135deg, rgba(239,68,68,.05), rgba(245,158,11,.05)); border: 1px solid rgba(239,68,68,.15); }
+  .ng-axis { text-align: center; grid-column: 1 / -1; font-size: .72rem; color: var(--text3); padding-top: 6px; letter-spacing: .06em; }
+
+  /* ── Radar ── */
+  .radar-wrap { display: flex; justify-content: center; }
+
+  /* ── Insight cards ── */
+  .insight-card {
+    border-radius: var(--radius); padding: 32px 28px;
+    background: var(--surface); border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm); transition: transform .3s, box-shadow .3s;
+  }
+  .insight-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+  .ic-icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 16px; font-size: 1.3rem;
+  }
+  .ic-title { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+  .ic-list { font-size: .88rem; color: var(--text2); line-height: 1.8; }
+
+  /* ── Concept box ── */
+  .concept-box {
+    padding: 20px 24px; border-radius: var(--radius-sm);
+    background: linear-gradient(135deg, rgba(59,130,246,.04), rgba(99,102,241,.04));
+    border: 1px solid rgba(59,130,246,.1);
+  }
+  .concept-title { font-size: .82rem; font-weight: 700; color: var(--blue); margin-bottom: 8px; }
+  .concept-body { font-size: .85rem; color: var(--text2); line-height: 1.9; }
+
+  /* ── M11 workflow ── */
+  .wf-flow {
+    display: flex; align-items: stretch; gap: 0; margin: 0 auto;
+    max-width: 100%; overflow-x: auto; padding-bottom: 8px;
+  }
+  .wf-col {
+    flex: 1; min-width: 200px; position: relative;
+    padding: 24px 20px; border-radius: var(--radius);
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .wf-col-title {
+    font-size: .72rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .08em; margin-bottom: 4px;
+  }
+  .wf-arrow {
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; width: 40px; color: var(--text3); font-size: 1.2rem;
+  }
+  .wf-node {
+    padding: 10px 14px; border-radius: 8px; font-size: .82rem;
+    font-weight: 500; transition: transform .2s;
+  }
+  .wf-node:hover { transform: scale(1.03); }
+  .wf-node-label { font-size: .72rem; color: inherit; opacity: .7; margin-top: 2px; }
+
+  .wf-stat-row {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 8px;
+  }
+  @media (max-width: 768px) { .wf-stat-row { grid-template-columns: repeat(2, 1fr); } }
+  .wf-stat {
+    text-align: center; padding: 20px 12px; border-radius: var(--radius-sm);
+    background: var(--surface); border: 1px solid var(--border);
+  }
+  .wf-stat-num { font-size: 1.6rem; font-weight: 800; letter-spacing: -.02em; }
+  .wf-stat-label { font-size: .78rem; color: var(--text2); margin-top: 4px; }
+
+  .wf-checklist { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  @media (max-width: 640px) { .wf-checklist { grid-template-columns: 1fr; } }
+  .wf-check-item {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 14px 16px; border-radius: 8px;
+    background: var(--bg2); font-size: .85rem; color: var(--text2); line-height: 1.5;
+  }
+  .wf-check-icon { flex-shrink: 0; font-size: .9rem; margin-top: 1px; }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center; padding: 60px 24px;
+    background: var(--text); color: rgba(255,255,255,.5);
+    font-size: .82rem;
+  }
+  .footer .name { font-size: 1rem; font-weight: 600; color: #fff; margin-bottom: 6px; }
+
+  /* ── Responsive ── */
+  @media (max-width: 640px) {
+    .nav { padding: 0 16px; }
+    .nav-links a { padding: 6px 10px; font-size: .75rem; }
+    .stat-grid { gap: 10px; }
+    .stat-card { padding: 20px 16px; }
+    .stat-num { font-size: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav" id="nav">
+  <div class="nav-brand"><span>SoulMate</span> AI</div>
+  <ul class="nav-links">
+    <li><a href="#overview">概览</a></li>
+    <li><a href="#tracking">埋点</a></li>
+    <li><a href="#m11">M11</a></li>
+    <li><a href="#pe">PE评测</a></li>
+    <li><a href="#cost">成本</a></li>
+    <li><a href="#segment">分层</a></li>
+    <li><a href="#growth">成长</a></li>
+  </ul>
+</nav>
+<div class="scroll-progress" id="scrollBar"></div>
+
+<!-- ═══════ Hero ═══════ -->
+<section class="hero" id="overview">
+  <div class="hero-badge reveal"><span class="dot"></span> 创新实验室 · AI社交项目</div>
+  <h1 class="reveal reveal-d1">何昀纾<br><span class="accent">试用期述职</span></h1>
+  <p class="hero-sub reveal reveal-d2">
+    三个月，四个方向。从数据埋点到 AI 质量保障，<br>用体系化思维驱动 SoulMate AI 产品运营。
+  </p>
+  <div class="hero-chips reveal reveal-d3">
+    <span class="chip">产品运营</span>
+    <span class="chip">2026.03 — 2026.06</span>
+    <span class="chip">试用期 90 天</span>
+  </div>
+</section>
+
+<!-- ═══════ Stats ═══════ -->
+<section class="section">
+  <div class="stat-grid reveal">
+    <div class="stat-card">
+      <div class="stat-num"><span class="counter" data-target="13">0</span></div>
+      <div class="stat-label">模块埋点覆盖</div>
+      <div class="stat-sub">全产品 M01–M13</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num"><span class="counter" data-target="147">0</span></div>
+      <div class="stat-label">PE 评测运行</div>
+      <div class="stat-sub">47 模板 · 180 用例</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num"><span class="counter" data-target="61">0</span></div>
+      <div class="stat-label">M02 事件数</div>
+      <div class="stat-sub">270 属性 · 9 核心指标</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num"><span class="counter" data-target="7" data-suffix="x">0</span></div>
+      <div class="stat-label">成本偏差修正</div>
+      <div class="stat-sub">月成本降 76%</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════ Timeline ═══════ -->
+<section class="section">
+  <div class="sec-header reveal">
+    <div class="sec-tag" style="background:rgba(59,130,246,.08);color:var(--blue)">Timeline</div>
+    <h2>三个月，<span class="light">四个里程碑</span></h2>
+  </div>
+  <div class="timeline">
+    <div class="tl-item reveal">
+      <div class="tl-date">2026.03 · 入职期</div>
+      <div class="tl-title">业务熟悉 & Onboarding</div>
+      <div class="tl-desc">理解 SoulMate AI 产品架构、核心模块与技术栈</div>
+    </div>
+    <div class="tl-item reveal">
+      <div class="tl-date">2026.04 · 基础搭建</div>
+      <div class="tl-title">M02 埋点 v1 · 用户分层 v1 · 成本建模启动</div>
+      <div class="tl-desc">首个标杆模块落地，发现旧版成本模型存在 7 倍偏差</div>
+    </div>
+    <div class="tl-item reveal">
+      <div class="tl-date">2026.05 · 核心产出期</div>
+      <div class="tl-title">全产品 13 模块埋点 · PE 147 次评测 · M11 工作流 · 成本 v8</div>
+      <div class="tl-desc">用户分层 v2 定稿 · M02 埋点 v2 定稿 · IM 服务端落地清单 · Profile Agent Chat 工作流</div>
+    </div>
+    <div class="tl-item reveal">
+      <div class="tl-date">2026.06 · 转正 & 上线</div>
+      <div class="tl-title">PE 收尾 · 埋点客户端对齐 · 项目上线冲刺</div>
+      <div class="tl-desc">上线前质量保障 · DAU 目标拆解 · 运营准备</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════ Tracking ═══════ -->
+<section class="section" id="tracking">
+  <div class="sec-header reveal">
+    <div class="sec-tag" style="background:rgba(59,130,246,.08);color:var(--blue)">01 · 数据埋点</div>
+    <h2>全产品埋点体系<span class="light"><br>不只看人，也看机器</span></h2>
+    <p>覆盖 13 个功能模块、1,183 行埋点文档。M02 分身复刻模块作为标杆，完成 61 事件 · 270 属性的深度设计。</p>
+  </div>
+
+  <div class="mod-grid reveal" id="modGrid"></div>
+
+  <div class="grid-2" style="margin-top:20px">
+    <div class="card reveal">
+      <div class="card-title">M02 事件构成</div>
+      <div class="donut-wrap">
+        <svg viewBox="0 0 180 180" width="150" height="150" id="donut1"></svg>
+        <div class="donut-legend">
+          <div class="dl-item"><span class="dl-dot" style="background:var(--blue)"></span> 客户端事件 · 47</div>
+          <div class="dl-item"><span class="dl-dot" style="background:var(--cyan)"></span> 服务端事件 · 14</div>
+        </div>
+      </div>
+    </div>
+    <div class="card reveal">
+      <div class="card-title">三版演进</div>
+      <div class="bar-group">
+        <div>
+          <div class="bar-label"><span>v1 初版</span><span>59 事件</span></div>
+          <div class="bar-track"><div class="bar-fill" style="background:var(--blue)" data-w="82%"></div></div>
+        </div>
+        <div>
+          <div class="bar-label"><span>v2 修复 11 项问题</span><span>60 事件</span></div>
+          <div class="bar-track"><div class="bar-fill" style="background:var(--cyan)" data-w="92%"></div></div>
+        </div>
+        <div>
+          <div class="bar-label"><span>v2 定稿</span><span>61 事件 · 270 属性</span></div>
+          <div class="bar-track"><div class="bar-fill" style="background:var(--grad-blue)" data-w="100%"></div></div>
+        </div>
+      </div>
+      <div class="concept-box" style="margin-top:24px">
+        <div class="concept-title">三大核心理念</div>
+        <div class="concept-body">
+          1. 不只看人，也看机器 — 14 个服务端事件追踪 AI 调用<br>
+          2. 成本逐笔记账 — 每次 AI 调用实时记录可聚合成本<br>
+          3. 质量信号回流 — 用户反馈驱动算法迭代
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════ M11 Workflow ═══════ -->
+<section class="section" id="m11">
+  <div class="sec-header reveal">
+    <div class="sec-tag" style="background:rgba(6,182,212,.08);color:var(--cyan)">02 · M11 工作流</div>
+    <h2>档案 Agent 对话模块<span class="light"><br>从 0 到 1 的全链路搭建</span></h2>
+    <p>独立搭建"他人档案 Agent"对话模块完整工作流——从产品需求理解到 Prompt 设计、PE 评测覆盖、IM 服务端落地清单的全链路交付。</p>
+  </div>
+
+  <!-- Workflow architecture -->
+  <div class="card reveal" style="margin-bottom:20px;padding:28px 24px">
+    <div class="card-title">工作流架构</div>
+    <div class="wf-flow">
+      <div class="wf-col" style="background:rgba(59,130,246,.04);border:1px solid rgba(59,130,246,.1)">
+        <div class="wf-col-title" style="color:var(--blue)">用户操作</div>
+        <div class="wf-node" style="background:rgba(59,130,246,.08);color:var(--blue-deep)">浏览档案</div>
+        <div class="wf-node" style="background:rgba(59,130,246,.08);color:var(--blue-deep)">一键复刻 / 精细复刻</div>
+        <div class="wf-node" style="background:rgba(59,130,246,.08);color:var(--blue-deep)">发起对话</div>
+        <div class="wf-node" style="background:rgba(59,130,246,.08);color:var(--blue-deep)">持续聊天 · 反馈评价</div>
+      </div>
+      <div class="wf-arrow">→</div>
+      <div class="wf-col" style="background:rgba(139,92,246,.04);border:1px solid rgba(139,92,246,.1)">
+        <div class="wf-col-title" style="color:var(--purple)">系统处理</div>
+        <div class="wf-node" style="background:rgba(139,92,246,.08);color:#6d28d9">
+          安全分类（前置门控）
+          <div class="wf-node-label">safety_classify v2</div>
+        </div>
+        <div class="wf-node" style="background:rgba(139,92,246,.08);color:#6d28d9">
+          关系类型识别与路由
+          <div class="wf-node-label">5 种关系 × 4 种状态</div>
+        </div>
+        <div class="wf-node" style="background:rgba(139,92,246,.08);color:#6d28d9">
+          对话生成（分型回复）
+          <div class="wf-node-label">intimate / family / peer / role / agent_reply</div>
+        </div>
+      </div>
+      <div class="wf-arrow">→</div>
+      <div class="wf-col" style="background:rgba(16,185,129,.04);border:1px solid rgba(16,185,129,.1)">
+        <div class="wf-col-title" style="color:var(--emerald)">PE 质量保障</div>
+        <div class="wf-node" style="background:rgba(16,185,129,.08);color:#065f46">safety_classify · violation_reply</div>
+        <div class="wf-node" style="background:rgba(16,185,129,.08);color:#065f46">identity_reply · intimate_reply</div>
+        <div class="wf-node" style="background:rgba(16,185,129,.08);color:#065f46">family_reply · peer_reply</div>
+        <div class="wf-node" style="background:rgba(16,185,129,.08);color:#065f46">role_reply · profile_agent_reply</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- M11 key metrics -->
+  <div class="wf-stat-row reveal">
+    <div class="wf-stat">
+      <div class="wf-stat-num" style="color:var(--cyan)">8</div>
+      <div class="wf-stat-label">PE 子节点覆盖</div>
+    </div>
+    <div class="wf-stat">
+      <div class="wf-stat-num" style="color:var(--blue)">27</div>
+      <div class="wf-stat-label">Prompt 模板版本</div>
+    </div>
+    <div class="wf-stat">
+      <div class="wf-stat-num" style="color:var(--purple)">112</div>
+      <div class="wf-stat-label">YAML 测试用例</div>
+    </div>
+    <div class="wf-stat">
+      <div class="wf-stat-num" style="color:var(--emerald)">v6</div>
+      <div class="wf-stat-label">最高迭代版本</div>
+    </div>
+  </div>
+
+  <!-- IM landing checklist + challenges -->
+  <div class="grid-2" style="margin-top:20px">
+    <div class="card reveal">
+      <div class="card-title">IM 服务端落地清单</div>
+      <div class="wf-checklist">
+        <div class="wf-check-item">
+          <span class="wf-check-icon">✅</span>
+          <span><strong>协议注册</strong><br>3 条 Registry 定义 + schema 校验</span>
+        </div>
+        <div class="wf-check-item">
+          <span class="wf-check-icon">✅</span>
+          <span><strong>Payload 字段</strong><br>profile_agent_text / sync_rate_hint / debug_command</span>
+        </div>
+        <div class="wf-check-item">
+          <span class="wf-check-icon">✅</span>
+          <span><strong>会话寻址</strong><br>agent_id 主键 + conversationId 映射</span>
+        </div>
+        <div class="wf-check-item">
+          <span class="wf-check-icon">✅</span>
+          <span><strong>反馈/举报复用</strong><br>复用 chatService 接口，按 agent_id 路由分支</span>
+        </div>
+        <div class="wf-check-item">
+          <span class="wf-check-icon">✅</span>
+          <span><strong>持久化与投影</strong><br>ledger_required + 独立表隔离</span>
+        </div>
+        <div class="wf-check-item">
+          <span class="wf-check-icon">✅</span>
+          <span><strong>Fixture 联调</strong><br>3 条契约测试样本 + expected 断言</span>
+        </div>
+      </div>
+    </div>
+    <div class="card reveal">
+      <div class="card-title">项目挑战与应对</div>
+      <div style="display:flex;flex-direction:column;gap:20px">
+        <div>
+          <div style="font-size:.9rem;font-weight:600;color:var(--text)">组合空间爆炸</div>
+          <div style="font-size:.85rem;color:var(--text2);margin-top:4px;line-height:1.6">5 种关系类型 × 4 种关系状态 = 20 种场景组合。通过分型回复策略，用 5 个独立 Prompt 模板覆盖全场景。</div>
+        </div>
+        <div style="height:1px;background:var(--border)"></div>
+        <div>
+          <div style="font-size:.9rem;font-weight:600;color:var(--text)">安全前置门控</div>
+          <div style="font-size:.85rem;color:var(--text2);margin-top:4px;line-height:1.6">safety_classify 作为前置分类器，将违规/身份敏感内容在生成前拦截，最高迭代至 v2，覆盖 30+ 用例。</div>
+        </div>
+        <div style="height:1px;background:var(--border)"></div>
+        <div>
+          <div style="font-size:.9rem;font-weight:600;color:var(--text)">全链路闭环交付</div>
+          <div style="font-size:.85rem;color:var(--text2);margin-top:4px;line-height:1.6">从产品需求文档 → Prompt 设计 → PE 评测覆盖 → IM 服务端落地清单，独立完成从 0 到 1 的完整闭环。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════ PE ═══════ -->
+<section class="section" id="pe">
+  <div class="sec-header reveal">
+    <div class="sec-tag" style="background:rgba(139,92,246,.08);color:var(--purple)">03 · PE 评测</div>
+    <h2>Prompt Engineering<span class="light"><br>从艺术到工程</span></h2>
+    <p>47 个 Jinja2 模板 · 180 个 YAML 用例 · 147 次评测 · 6+ 模型验证 · 4 个自动化 Skill。M11 占 PE 总量 57%。</p>
+  </div>
+
+  <div class="reveal" style="margin-bottom:20px">
+    <div style="font-size:.85rem;font-weight:600;color:var(--text2);margin-bottom:14px">
+      评测节点覆盖矩阵 <span style="color:var(--blue);font-weight:500;font-size:.8rem">— M11 高亮</span>
+    </div>
+    <div class="pe-grid" id="peGrid"></div>
+  </div>
+
+  <div class="grid-2" style="margin-top:20px">
+    <div class="card reveal">
+      <div class="card-title">模块模板占比</div>
+      <div class="donut-wrap">
+        <svg viewBox="0 0 180 180" width="150" height="150" id="donut2"></svg>
+        <div class="donut-legend">
+          <div class="dl-item"><span class="dl-dot" style="background:var(--blue)"></span> M11 档案Agent · 27 (57%)</div>
+          <div class="dl-item"><span class="dl-dot" style="background:var(--purple)"></span> M07 分身对话 · 14 (30%)</div>
+          <div class="dl-item"><span class="dl-dot" style="background:var(--text3)"></span> 其他模块 · 6 (13%)</div>
+        </div>
+      </div>
+    </div>
+    <div class="card reveal">
+      <div class="card-title">自动化工具链</div>
+      <div class="skill-list">
+        <div class="skill-item">
+          <div class="skill-icon" style="background:rgba(59,130,246,.08)">⚡</div>
+          <div><div class="skill-name">/pe</div><div class="skill-desc">一键编排评测：选节点 → 选模型 → 运行 → 报告</div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-icon" style="background:rgba(139,92,246,.08)">🔍</div>
+          <div><div class="skill-name">/pe-diagnose</div><div class="skill-desc">类型感知诊断：C1-C4 / G1-G3 / E1-E2 / A1-A2</div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-icon" style="background:rgba(245,158,11,.08)">🔧</div>
+          <div><div class="skill-name">/pe-fix</div><div class="skill-desc">最小修改原则：±2 行范围内精准修复</div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-icon" style="background:rgba(16,185,129,.08)">✅</div>
+          <div><div class="skill-name">/pe-validate</div><div class="skill-desc">回归门控：确保修改不引入新问题</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════ Cost ═══════ -->
+<section class="section" id="cost">
+  <div class="sec-header reveal">
+    <div class="sec-tag" style="background:rgba(245,158,11,.08);color:var(--orange)">04 · 成本建模</div>
+    <h2>修正 7 倍偏差<span class="light"><br>Token 级精算</span></h2>
+    <p>发现旧模型将 session Token 误标为单轮均值并乘以 7 轮，匹配成本虚高约 7 倍。v8 修正后月成本降 76%。</p>
+  </div>
+
+  <div class="card reveal" style="margin-bottom:20px">
+    <div class="card-title">v8 成本修正对比</div>
+    <div style="overflow-x:auto">
+      <table class="data-table">
+        <thead><tr><th>场景</th><th>旧成本 (¥)</th><th>v8 成本 (¥)</th><th>变化</th><th>毛利率</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:600;color:var(--text)">异性匹配</td><td class="cost-old">0.359</td><td class="cost-new">0.053</td><td><span class="badge badge-green">-85%</span></td><td>94.7%</td></tr>
+          <tr><td style="font-weight:600;color:var(--text)">兴趣交友</td><td class="cost-old">0.359</td><td class="cost-new">0.053</td><td><span class="badge badge-green">-85%</span></td><td>89.5%</td></tr>
+          <tr><td style="font-weight:600;color:var(--text)">分身悄悄话</td><td>0.009</td><td class="cost-new">0.009</td><td style="color:var(--text3)">—</td><td>97.0%</td></tr>
+          <tr><td style="font-weight:600;color:var(--text)">Crush 攻略师</td><td class="cost-old">0.041</td><td class="cost-new">0.036</td><td><span class="badge badge-green">-12%</span></td><td>92.8%</td></tr>
+          <tr><td style="font-weight:600;color:var(--text)">复刻档案 Agent</td><td class="cost-old">0.013</td><td style="color:var(--orange);font-weight:700">0.229</td><td><span class="badge badge-red">+1663%</span></td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="grid-2 reveal">
+    <div class="card">
+      <div class="card-title">三档月成本 (v8)</div>
+      <div class="bar-group">
+        <div>
+          <div class="bar-label"><span>Free (1次/天)</span><span>¥2.93</span></div>
+          <div class="bar-track"><div class="bar-fill" style="background:var(--green)" data-w="33%"></div></div>
+        </div>
+        <div>
+          <div class="bar-label"><span>VIP (2次/天)</span><span>¥5.87</span></div>
+          <div class="bar-track"><div class="bar-fill" style="background:var(--cyan)" data-w="67%"></div></div>
+        </div>
+        <div>
+          <div class="bar-label"><span>SVIP (3次/天)</span><span>¥8.80</span></div>
+          <div class="bar-track"><div class="bar-fill" style="background:var(--blue)" data-w="100%"></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">旧版 vs v8 对比</div>
+      <div class="bar-group">
+        <div>
+          <div class="bar-label"><span>Free 旧版</span><span style="color:var(--red)">¥12.27</span></div>
+          <div class="bar-track"><div class="bar-fill" style="background:rgba(239,68,68,.3)" data-w="100%"></div></div>
+        </div>
+        <div>
+          <div class="bar-label"><span>Free v8</span><span style="color:var(--emerald)">¥2.93</span></div>
+          <div class="bar-track"><div class="bar-fill" style="background:var(--green)" data-w="24%"></div></div>
+        </div>
+        <div style="height:4px"></div>
+        <div>
+          <div class="bar-label"><span>SVIP 旧版</span><span style="color:var(--red)">¥36.81</span></div>
+          <div class="bar-track"><div class="bar-fill" style="background:rgba(239,68,68,.3)" data-w="100%"></div></div>
+        </div>
+        <div>
+          <div class="bar-label"><span>SVIP v8</span><span style="color:var(--emerald)">¥8.80</span></div>
+          <div class="bar-track"><div class="bar-fill" style="background:var(--green)" data-w="24%"></div></div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:20px">
+        <span style="font-size:1.6rem;font-weight:800;color:var(--emerald)">-76%</span>
+        <div style="font-size:.78rem;color:var(--text3);margin-top:2px">月成本降幅</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════ Segment ═══════ -->
+<section class="section" id="segment">
+  <div class="sec-header reveal">
+    <div class="sec-tag" style="background:rgba(236,72,153,.08);color:var(--pink)">05 · 用户分层</div>
+    <h2>双轴九宫格<span class="light"><br>为会员权益重构提供依据</span></h2>
+    <p>使用频次 × 付费深度双轴分层，从 v1 CES 单轴迭代至 v2 双轴九宫格，服务产品、运营、数据、商业化四大下游。</p>
+  </div>
+
+  <div class="card reveal" style="margin-bottom:20px">
+    <div class="nine-grid-container" style="position:relative">
+      <div style="position:relative">
+        <div style="position:absolute;left:-52px;top:50%;transform:translateY(-50%) rotate(-90deg);font-size:.72rem;color:var(--text3);letter-spacing:.06em;white-space:nowrap;font-weight:500">付费深度 ↑</div>
+        <div class="nine-grid">
+          <div class="ng-cell ng-warm"><span class="ng-idx">3</span><div class="ng-label">潜水土豪</div><div class="ng-tag">低频 · ≥100币</div></div>
+          <div class="ng-cell ng-warm"><span class="ng-idx">6</span><div class="ng-label">稳定付费</div><div class="ng-tag">中频 · ≥100币</div></div>
+          <div class="ng-cell ng-hot"><span class="ng-idx">9</span><div class="ng-label">超级用户</div><div class="ng-tag">高频 · ≥100币</div></div>
+          <div class="ng-cell ng-cold"><span class="ng-idx">2</span><div class="ng-label">观望者</div><div class="ng-tag">低频 · ≥10币</div></div>
+          <div class="ng-cell ng-mid"><span class="ng-idx">5</span><div class="ng-label">主流用户</div><div class="ng-tag">中频 · ≥10币</div></div>
+          <div class="ng-cell ng-warm"><span class="ng-idx">8</span><div class="ng-label">活跃付费</div><div class="ng-tag">高频 · ≥10币</div></div>
+          <div class="ng-cell ng-cold"><span class="ng-idx">1</span><div class="ng-label">沉默用户</div><div class="ng-tag">低频 · &lt;10币</div></div>
+          <div class="ng-cell ng-cold"><span class="ng-idx">4</span><div class="ng-label">白嫖达人</div><div class="ng-tag">中频 · &lt;10币</div></div>
+          <div class="ng-cell ng-mid"><span class="ng-idx">7</span><div class="ng-label">深度白嫖</div><div class="ng-tag">高频 · &lt;10币</div></div>
+          <div class="ng-axis">使用频次 →</div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:10px;font-size:.78rem;color:var(--text3)">
+      + 第四档【未激活】：从未开始 / 流程中 / 暂停 / 放弃（独立漏斗）
+    </div>
+  </div>
+
+  <div class="card reveal">
+    <div class="card-title">五项核心决策</div>
+    <div style="overflow-x:auto">
+      <table class="data-table">
+        <thead><tr><th>决策</th><th>结果</th><th>依据</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:600;color:var(--text)">分层方法</td><td>双轴混合（频次 + 付费）</td><td>"低频高付费"不能被单轴掩盖</td></tr>
+          <tr><td style="font-weight:600;color:var(--text)">时间窗口</td><td>30天主 + 7天辅 + 事件锚定</td><td>适配订阅周期与行为波动</td></tr>
+          <tr><td style="font-weight:600;color:var(--text)">阈值机制</td><td>P80/P50 分位数 + 业务下限</td><td>自适应且不被冷启动拖低</td></tr>
+          <tr><td style="font-weight:600;color:var(--text)">Cohort 切分</td><td>分身完成日为主锚点</td><td>分身完成 = SoulMate 真激活时点</td></tr>
+          <tr><td style="font-weight:600;color:var(--text)">数据就绪</td><td>埋点上线 30 天后执行</td><td>7天复刻 → 14天接管 → 30天完整分层</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════ Growth ═══════ -->
+<section class="section" id="growth">
+  <div class="sec-header reveal">
+    <div class="sec-tag" style="background:rgba(16,185,129,.08);color:var(--emerald)">成长与反思</div>
+    <h2>认知跃迁<span class="light"><br>基于业务，不局限于业务</span></h2>
+  </div>
+
+  <div class="grid-2 reveal" style="margin-bottom:20px">
+    <div class="card">
+      <div class="card-title">能力雷达</div>
+      <div class="radar-wrap">
+        <svg viewBox="0 0 300 300" width="280" height="280" id="radarSvg"></svg>
+      </div>
+    </div>
+    <div class="card" style="display:flex;flex-direction:column;justify-content:center">
+      <div style="display:flex;flex-direction:column;gap:28px">
+        <div>
+          <div style="font-size:1rem;font-weight:700;color:var(--blue)">从"产品运营"到"AI 产品运营"</div>
+          <div style="font-size:.88rem;color:var(--text2);margin-top:6px;line-height:1.7">成本结构、质量保障方式、数据追踪维度与传统产品本质不同。不是"加了 AI 功能"，而是需要全新的思考框架。</div>
+        </div>
+        <div style="height:1px;background:var(--border)"></div>
+        <div>
+          <div style="font-size:1rem;font-weight:700;color:var(--emerald)">从"做事"到"做体系"</div>
+          <div style="font-size:.88rem;color:var(--text2);margin-top:6px;line-height:1.7">PE 评测框架、埋点方法论、九宫格分层——不只是交付一次性成果，而是建立可持续运转的系统。</div>
+        </div>
+        <div style="height:1px;background:var(--border)"></div>
+        <div>
+          <div style="font-size:1rem;font-weight:700;color:var(--purple)">AI 时代的工作方式</div>
+          <div style="font-size:.88rem;color:var(--text2);margin-top:6px;line-height:1.7">Claude Code + 4 自动化 Skill，将"评测-诊断-修复-验证"从手动变成半自动化。工具搭建能力 = 生产力倍增器。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-3 reveal">
+    <div class="insight-card">
+      <div class="ic-icon" style="background:rgba(59,130,246,.08)">📈</div>
+      <div class="ic-title">做得好的</div>
+      <div class="ic-list">
+        成本偏差在团队做定价决策前被发现修正<br>
+        PE 147 次运行零质量回归<br>
+        M11 八子节点从设计到落地完整闭环
+      </div>
+    </div>
+    <div class="insight-card">
+      <div class="ic-icon" style="background:rgba(245,158,11,.08)">💡</div>
+      <div class="ic-title">待改进</div>
+      <div class="ic-list">
+        深度工程化 vs 早期效率的平衡<br>
+        跨团队主动沟通与 walkthrough<br>
+        从执行者到规划者的跃迁
+      </div>
+    </div>
+    <div class="insight-card">
+      <div class="ic-icon" style="background:rgba(16,185,129,.08)">🚀</div>
+      <div class="ic-title">下一步</div>
+      <div class="ic-list">
+        上线后 DAU 目标拆解与增长策略<br>
+        分层驱动精细化运营<br>
+        SQL / Python 数据分析实操
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="name">何昀纾 · 试用期述职</div>
+  <div>创新实验室 · AI社交项目 · SoulMate AI · 2026.03 — 2026.06</div>
+</footer>
+
+<script>
+// ── Scroll reveal ──
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      e.target.querySelectorAll('.bar-fill[data-w]').forEach(b => {
+        setTimeout(() => b.style.width = b.dataset.w, 200);
+      });
+      e.target.querySelectorAll('.counter').forEach(el => {
+        if (el.dataset.done) return;
+        el.dataset.done = '1';
+        const target = +el.dataset.target;
+        const suffix = el.dataset.suffix || '';
+        const dur = 1600, start = performance.now();
+        function tick(now) {
+          const t = Math.min((now - start) / dur, 1);
+          const ease = 1 - Math.pow(1 - t, 4);
+          el.textContent = Math.round(target * ease) + (t >= 1 ? suffix : '');
+          if (t < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      });
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+// ── Scroll progress ──
+window.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  document.getElementById('scrollBar').style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100 + '%';
+  document.getElementById('nav').classList.toggle('scrolled', scrollY > 10);
+});
+
+// ── Nav active ──
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if (scrollY >= s.offsetTop - 200) current = s.id; });
+  navLinks.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+});
+
+// ── Module grid ──
+const modules = [
+  { id:'M01', name:'引导启动页', lines:49, ev:'2 事件', t:'stable' },
+  { id:'M02', name:'AI 分身复刻', lines:'844', ev:'61 事件 · 270 属性', t:'deep' },
+  { id:'M03', name:'Dashboard', lines:80, ev:'2 事件', t:'stable' },
+  { id:'M04', name:'发现页', lines:137, ev:'5 事件', t:'stable' },
+  { id:'M05', name:'聊天页', lines:106, ev:'2 事件', t:'stable' },
+  { id:'M06', name:'分身资料页', lines:177, ev:'12 事件', t:'stable' },
+  { id:'M07', name:'分身对话', lines:85, ev:'2 事件', t:'stable' },
+  { id:'M08', name:'私藏僚机', lines:132, ev:'—', t:'stable' },
+  { id:'M09', name:'匹配引擎', lines:102, ev:'5 事件', t:'stable' },
+  { id:'M10', name:'商业化', lines:122, ev:'—', t:'stable' },
+  { id:'M11', name:'档案 Agent', lines:17, ev:'待深化', t:'pending' },
+  { id:'M12', name:'合盘社交', lines:16, ev:'待深化', t:'pending' },
+  { id:'M13', name:'消息 Tab', lines:16, ev:'待深化', t:'pending' },
+];
+const mg = document.getElementById('modGrid');
+modules.forEach(m => {
+  const cls = m.t === 'deep' ? 'mod-deep' : m.t === 'stable' ? 'mod-stable' : 'mod-pending';
+  const badge = m.t === 'deep' ? 'DEEP' : m.t === 'stable' ? 'STABLE' : 'PENDING';
+  mg.innerHTML += `<div class="mod-card ${cls}">
+    <span class="mod-badge">${badge}</span>
+    <div class="mod-id">${m.id}</div>
+    <div class="mod-name">${m.name}</div>
+    <div class="mod-stat">${m.lines} 行 · ${m.ev}</div>
+  </div>`;
+});
+
+// ── PE grid ──
+const peNodes = [
+  { m:'M02', n:'persona_extraction', v:'v1', t:'抽取', is11:false },
+  { m:'M02', n:'qa_generation', v:'v1', t:'生成', is11:false },
+  { m:'M07', n:'intent_recognition', v:'v7', t:'分类', is11:false },
+  { m:'M07', n:'avatar_reply', v:'v7', t:'生成', is11:false },
+  { m:'M08', n:'confide', v:'v2', t:'生成', is11:false },
+  { m:'M08', n:'screenshot_analyze', v:'v1', t:'分析', is11:false },
+  { m:'M09', n:'scoring_reason', v:'v1', t:'分析', is11:false },
+  { m:'M11', n:'safety_classify', v:'v2', t:'分类', is11:true },
+  { m:'M11', n:'violation_reply', v:'v5', t:'生成', is11:true },
+  { m:'M11', n:'identity_reply', v:'v6', t:'生成', is11:true },
+  { m:'M11', n:'intimate_reply', v:'v3', t:'生成', is11:true },
+  { m:'M11', n:'family_reply', v:'v3', t:'生成', is11:true },
+  { m:'M11', n:'peer_reply', v:'v3', t:'生成', is11:true },
+  { m:'M11', n:'role_reply', v:'v3', t:'生成', is11:true },
+  { m:'M11', n:'profile_agent_reply', v:'v2', t:'生成', is11:true },
+];
+const pg = document.getElementById('peGrid');
+peNodes.forEach(p => {
+  pg.innerHTML += `<div class="pe-item ${p.is11 ? 'is-m11' : ''}">
+    <div class="pe-name">${p.n}</div>
+    <div class="pe-ver">${p.v}</div>
+    <div class="pe-type">${p.m} · ${p.t}</div>
+  </div>`;
+});
+
+// ── Donuts ──
+function drawDonut(id, segs) {
+  const svg = document.getElementById(id);
+  const cx = 90, cy = 90, r = 62;
+  const total = segs.reduce((s, d) => s + d.v, 0);
+  let angle = -90;
+  svg.innerHTML = `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#f1f5f9" stroke-width="18"/>`;
+  segs.forEach((seg, i) => {
+    const pct = seg.v / total;
+    const sweep = pct * 360;
+    const r1 = angle * Math.PI / 180;
+    const r2 = (angle + sweep) * Math.PI / 180;
+    const x1 = cx + r * Math.cos(r1), y1 = cy + r * Math.sin(r1);
+    const x2 = cx + r * Math.cos(r2), y2 = cy + r * Math.sin(r2);
+    const lg = sweep > 180 ? 1 : 0;
+    svg.innerHTML += `<path d="M${x1},${y1} A${r},${r} 0 ${lg} 1 ${x2},${y2}" fill="none" stroke="${seg.c}" stroke-width="18" stroke-linecap="round"/>`;
+    angle += sweep;
+  });
+  svg.innerHTML += `<text x="${cx}" y="${cy}" text-anchor="middle" dominant-baseline="central" fill="#0f172a" font-size="22" font-weight="800" font-family="Inter,sans-serif">${total}</text>`;
+}
+drawDonut('donut1', [{ v: 47, c: '#3b82f6' }, { v: 14, c: '#06b6d4' }]);
+drawDonut('donut2', [{ v: 27, c: '#3b82f6' }, { v: 14, c: '#8b5cf6' }, { v: 6, c: '#94a3b8' }]);
+
+// ── Radar ──
+(function () {
+  const svg = document.getElementById('radarSvg');
+  const cx = 150, cy = 150, R = 100;
+  const dims = [
+    { l: '数据埋点', v: .95 },
+    { l: 'PE评测', v: .92 },
+    { l: '工作流搭建', v: .88 },
+    { l: '成本建模', v: .90 },
+    { l: '用户分层', v: .85 },
+    { l: 'AI工具化', v: .93 },
+  ];
+  const n = dims.length, step = 2 * Math.PI / n;
+  [.25, .5, .75, 1].forEach(s => {
+    const pts = [];
+    for (let i = 0; i < n; i++) {
+      const a = -Math.PI / 2 + i * step;
+      pts.push(`${cx + R * s * Math.cos(a)},${cy + R * s * Math.sin(a)}`);
+    }
+    svg.innerHTML += `<polygon points="${pts.join(' ')}" fill="none" stroke="#e2e8f0" stroke-width="1"/>`;
+  });
+  for (let i = 0; i < n; i++) {
+    const a = -Math.PI / 2 + i * step;
+    svg.innerHTML += `<line x1="${cx}" y1="${cy}" x2="${cx + R * Math.cos(a)}" y2="${cy + R * Math.sin(a)}" stroke="#e2e8f0" stroke-width="1"/>`;
+  }
+  const pts = dims.map((d, i) => {
+    const a = -Math.PI / 2 + i * step;
+    return `${cx + R * d.v * Math.cos(a)},${cy + R * d.v * Math.sin(a)}`;
+  });
+  svg.innerHTML += `<polygon points="${pts.join(' ')}" fill="rgba(59,130,246,.1)" stroke="#3b82f6" stroke-width="2"/>`;
+  dims.forEach((d, i) => {
+    const a = -Math.PI / 2 + i * step;
+    const x = cx + R * d.v * Math.cos(a);
+    const y = cy + R * d.v * Math.sin(a);
+    svg.innerHTML += `<circle cx="${x}" cy="${y}" r="4" fill="#3b82f6" stroke="#fff" stroke-width="2"/>`;
+    const lx = cx + (R + 22) * Math.cos(a);
+    const ly = cy + (R + 22) * Math.sin(a);
+    const anch = Math.abs(Math.cos(a)) < .15 ? 'middle' : Math.cos(a) > 0 ? 'start' : 'end';
+    svg.innerHTML += `<text x="${lx}" y="${ly + 4}" text-anchor="${anch}" fill="#475569" font-size="12" font-weight="500" font-family="'Noto Sans SC',Inter,sans-serif">${d.l}</text>`;
+  });
+})();
+</script>
+</body>
+</html>
