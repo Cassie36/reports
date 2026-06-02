@@ -578,38 +578,53 @@
 
   <!-- Workflow architecture -->
   <div class="card reveal" style="margin-bottom:20px;padding:28px 24px">
-    <div class="card-title">工作流架构</div>
+    <div class="card-title">17 节点全链路工作流</div>
     <div class="wf-flow">
       <div class="wf-col" style="background:rgba(59,130,246,.04);border:1px solid rgba(59,130,246,.1)">
-        <div class="wf-col-title" style="color:var(--blue)">用户操作</div>
-        <div class="wf-node" style="background:rgba(59,130,246,.08);color:var(--blue-deep)">浏览档案</div>
-        <div class="wf-node" style="background:rgba(59,130,246,.08);color:var(--blue-deep)">一键复刻 / 精细复刻</div>
-        <div class="wf-node" style="background:rgba(59,130,246,.08);color:var(--blue-deep)">发起对话</div>
-        <div class="wf-node" style="background:rgba(59,130,246,.08);color:var(--blue-deep)">持续聊天 · 反馈评价</div>
+        <div class="wf-col-title" style="color:var(--blue)">前处理 N1–N3</div>
+        <div class="wf-node" style="background:rgba(59,130,246,.08);color:var(--blue-deep)">
+          N1 数据归一化
+          <div class="wf-node-label">Code · 关系映射 · profile_block 预渲染</div>
+        </div>
+        <div class="wf-node" style="background:rgba(59,130,246,.08);color:var(--blue-deep)">
+          N2 安全分类
+          <div class="wf-node-label">LLM PE · 4 类分流 · v2</div>
+        </div>
+        <div class="wf-node" style="background:rgba(59,130,246,.08);color:var(--blue-deep)">
+          N3 JSON 解析 + 关键词兜底
+          <div class="wf-node-label">Code · 只升级不降级</div>
+        </div>
       </div>
       <div class="wf-arrow">→</div>
       <div class="wf-col" style="background:rgba(139,92,246,.04);border:1px solid rgba(139,92,246,.1)">
-        <div class="wf-col-title" style="color:var(--purple)">系统处理</div>
+        <div class="wf-col-title" style="color:var(--purple)">路由 + 生成 N4–N6</div>
         <div class="wf-node" style="background:rgba(139,92,246,.08);color:#6d28d9">
-          安全分类（前置门控）
-          <div class="wf-node-label">safety_classify v2</div>
+          N4 CRISIS / NORMAL 路由
+        </div>
+        <div class="wf-node" style="background:rgba(239,68,68,.08);color:#991b1b">
+          N5 违规子路由
+          <div class="wf-node-label">危机硬编码 · 违规PE拒绝 · 身份PE化解</div>
         </div>
         <div class="wf-node" style="background:rgba(139,92,246,.08);color:#6d28d9">
-          关系类型识别与路由
-          <div class="wf-node-label">5 种关系 × 4 种状态</div>
-        </div>
-        <div class="wf-node" style="background:rgba(139,92,246,.08);color:#6d28d9">
-          对话生成（分型回复）
-          <div class="wf-node-label">intimate / family / peer / role / agent_reply</div>
+          N6 关系路由 → 分型回复
+          <div class="wf-node-label">intimate · family · peer · role</div>
         </div>
       </div>
       <div class="wf-arrow">→</div>
-      <div class="wf-col" style="background:rgba(16,185,129,.04);border:1px solid rgba(16,185,129,.1)">
-        <div class="wf-col-title" style="color:var(--emerald)">PE 质量保障</div>
-        <div class="wf-node" style="background:rgba(16,185,129,.08);color:#065f46">safety_classify · violation_reply</div>
-        <div class="wf-node" style="background:rgba(16,185,129,.08);color:#065f46">identity_reply · intimate_reply</div>
-        <div class="wf-node" style="background:rgba(16,185,129,.08);color:#065f46">family_reply · peer_reply</div>
-        <div class="wf-node" style="background:rgba(16,185,129,.08);color:#065f46">role_reply · profile_agent_reply</div>
+      <div class="wf-col" style="background:rgba(245,158,11,.04);border:1px solid rgba(245,158,11,.15)">
+        <div class="wf-col-title" style="color:var(--orange)">后处理 + 审核 N8–N12</div>
+        <div class="wf-node" style="background:rgba(245,158,11,.08);color:#92400e">
+          N8 文本清洗 + AI 泄漏检测
+          <div class="wf-node-label">Code · 去 markdown / 角色前缀 / 硬泄漏替换</div>
+        </div>
+        <div class="wf-node" style="background:rgba(245,158,11,.08);color:#92400e">
+          N9–N10 伦理判断 + 数美审核
+          <div class="wf-node-label">家庭/师生/未成年 → 伦理通道 · 其他 → 标准通道</div>
+        </div>
+        <div class="wf-node" style="background:rgba(245,158,11,.08);color:#92400e">
+          N11–N12 审核路由 + 场景化兜底
+          <div class="wf-node-label">reject → 按 relation_category 返回兜底文案</div>
+        </div>
       </div>
     </div>
   </div>
@@ -617,8 +632,8 @@
   <!-- M11 key metrics -->
   <div class="wf-stat-row reveal">
     <div class="wf-stat">
-      <div class="wf-stat-num" style="color:var(--cyan)">8</div>
-      <div class="wf-stat-label">PE 子节点覆盖</div>
+      <div class="wf-stat-num" style="color:var(--cyan)">17</div>
+      <div class="wf-stat-label">工作流节点总数</div>
     </div>
     <div class="wf-stat">
       <div class="wf-stat-num" style="color:var(--blue)">27</div>
@@ -674,8 +689,8 @@
         </div>
         <div style="height:1px;background:var(--border)"></div>
         <div>
-          <div style="font-size:.9rem;font-weight:600;color:var(--text)">安全前置门控</div>
-          <div style="font-size:.85rem;color:var(--text2);margin-top:4px;line-height:1.6">safety_classify 作为前置分类器，将违规/身份敏感内容在生成前拦截，最高迭代至 v2，覆盖 30+ 用例。</div>
+          <div style="font-size:.9rem;font-weight:600;color:var(--text)">双层安全保障</div>
+          <div style="font-size:.85rem;color:var(--text2);margin-top:4px;line-height:1.6">前置：safety_classify 分类器在生成前拦截违规/身份敏感内容（30+ 用例）。后置：数美审核 + 伦理通道分流（家庭/师生/未成年），审核不通过时按关系类型返回场景化兜底文案。</div>
         </div>
         <div style="height:1px;background:var(--border)"></div>
         <div>
@@ -768,46 +783,47 @@
 
   <div class="grid-2 reveal">
     <div class="card">
-      <div class="card-title">三档月成本 (v8)</div>
+      <div class="card-title">三档月成本（实际频次校准）</div>
+      <div style="font-size:.75rem;color:var(--text3);margin-bottom:12px">基于 6 付费点 P25/P50/P75 分位数</div>
       <div class="bar-group">
         <div>
-          <div class="bar-label"><span>Free (1次/天)</span><span>¥2.93</span></div>
+          <div class="bar-label"><span>Free (P25)</span><span>¥1.95</span></div>
           <div class="bar-track"><div class="bar-fill" style="background:var(--green)" data-w="33%"></div></div>
         </div>
         <div>
-          <div class="bar-label"><span>VIP (2次/天)</span><span>¥5.87</span></div>
-          <div class="bar-track"><div class="bar-fill" style="background:var(--cyan)" data-w="67%"></div></div>
+          <div class="bar-label"><span>VIP (P50)</span><span>¥5.41</span></div>
+          <div class="bar-track"><div class="bar-fill" style="background:var(--cyan)" data-w="91%"></div></div>
         </div>
         <div>
-          <div class="bar-label"><span>SVIP (3次/天)</span><span>¥8.80</span></div>
+          <div class="bar-label"><span>SVIP (P75)</span><span>¥5.96</span></div>
           <div class="bar-track"><div class="bar-fill" style="background:var(--blue)" data-w="100%"></div></div>
         </div>
       </div>
     </div>
     <div class="card">
-      <div class="card-title">旧版 vs v8 对比</div>
+      <div class="card-title">假设估算 vs 频次校准</div>
       <div class="bar-group">
         <div>
-          <div class="bar-label"><span>Free 旧版</span><span style="color:var(--red)">¥12.27</span></div>
-          <div class="bar-track"><div class="bar-fill" style="background:rgba(239,68,68,.3)" data-w="100%"></div></div>
+          <div class="bar-label"><span>Free 假设 (1次/天)</span><span style="color:var(--text3)">¥2.93</span></div>
+          <div class="bar-track"><div class="bar-fill" style="background:rgba(148,163,184,.3)" data-w="49%"></div></div>
         </div>
         <div>
-          <div class="bar-label"><span>Free v8</span><span style="color:var(--emerald)">¥2.93</span></div>
-          <div class="bar-track"><div class="bar-fill" style="background:var(--green)" data-w="24%"></div></div>
+          <div class="bar-label"><span>Free 校准 (P25)</span><span style="color:var(--emerald)">¥1.95</span></div>
+          <div class="bar-track"><div class="bar-fill" style="background:var(--green)" data-w="33%"></div></div>
         </div>
         <div style="height:4px"></div>
         <div>
-          <div class="bar-label"><span>SVIP 旧版</span><span style="color:var(--red)">¥36.81</span></div>
-          <div class="bar-track"><div class="bar-fill" style="background:rgba(239,68,68,.3)" data-w="100%"></div></div>
+          <div class="bar-label"><span>SVIP 假设 (3次/天)</span><span style="color:var(--text3)">¥8.80</span></div>
+          <div class="bar-track"><div class="bar-fill" style="background:rgba(148,163,184,.3)" data-w="100%"></div></div>
         </div>
         <div>
-          <div class="bar-label"><span>SVIP v8</span><span style="color:var(--emerald)">¥8.80</span></div>
-          <div class="bar-track"><div class="bar-fill" style="background:var(--green)" data-w="24%"></div></div>
+          <div class="bar-label"><span>SVIP 校准 (P75)</span><span style="color:var(--emerald)">¥5.96</span></div>
+          <div class="bar-track"><div class="bar-fill" style="background:var(--green)" data-w="68%"></div></div>
         </div>
       </div>
       <div style="text-align:center;margin-top:20px">
-        <span style="font-size:1.6rem;font-weight:800;color:var(--emerald)">-76%</span>
-        <div style="font-size:.78rem;color:var(--text3);margin-top:2px">月成本降幅</div>
+        <span style="font-size:1.1rem;font-weight:700;color:var(--emerald)">Free -33% · SVIP -32%</span>
+        <div style="font-size:.78rem;color:var(--text3);margin-top:2px">实际频次 < 线性假设</div>
       </div>
     </div>
   </div>
@@ -819,8 +835,8 @@
 <section class="section" id="segment">
   <div class="sec-header reveal">
     <div class="sec-tag" style="background:rgba(236,72,153,.08);color:var(--pink)">05 · 用户分层</div>
-    <h2>双轴九宫格<span class="light"><br>为会员权益重构提供依据</span></h2>
-    <p>使用频次 × 付费深度双轴分层，从 v1 CES 单轴迭代至 v2 双轴九宫格，服务产品、运营、数据、商业化四大下游。</p>
+    <h2>双轴九宫格<span class="light"><br>→ 会员权益阶梯校准</span></h2>
+    <p>使用频次 × 付费深度双轴分层，从 v1 CES 单轴迭代至 v2 双轴九宫格；基于 6 付费点实际频次分布（P25/P50/P75）校准 Free/VIP/SVIP 权益阶梯。</p>
   </div>
 
   <div class="card reveal" style="margin-bottom:20px">
@@ -859,6 +875,48 @@
           <tr><td style="font-weight:600;color:var(--text)">数据就绪</td><td>埋点上线 30 天后执行</td><td>7天复刻 → 14天接管 → 30天完整分层</td></tr>
         </tbody>
       </table>
+    </div>
+  </div>
+
+  <div class="card reveal" style="margin-top:20px">
+    <div class="card-title">会员权益阶梯校准</div>
+    <div style="font-size:.78rem;color:var(--text3);margin-bottom:14px">分层框架 → 定价落地：按 P25/P50/P75 划定权益阶梯</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px">
+      <div style="background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.2);border-radius:10px;padding:14px 10px;text-align:center">
+        <div style="font-size:.72rem;color:var(--text3);margin-bottom:4px">Free · ≤P25</div>
+        <div style="font-size:1.2rem;font-weight:800;color:var(--green)">¥1.95</div>
+        <div style="font-size:.68rem;color:var(--text3);margin-top:2px">覆盖 ~60% 用户</div>
+      </div>
+      <div style="background:rgba(6,182,212,.06);border:1px solid rgba(6,182,212,.2);border-radius:10px;padding:14px 10px;text-align:center">
+        <div style="font-size:.72rem;color:var(--text3);margin-bottom:4px">VIP · P25–P50</div>
+        <div style="font-size:1.2rem;font-weight:800;color:var(--cyan)">¥5.41</div>
+        <div style="font-size:.68rem;color:var(--text3);margin-top:2px">中度活跃用户</div>
+      </div>
+      <div style="background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.2);border-radius:10px;padding:14px 10px;text-align:center">
+        <div style="font-size:.72rem;color:var(--text3);margin-bottom:4px">SVIP · P50–P75</div>
+        <div style="font-size:1.2rem;font-weight:800;color:var(--blue)">¥5.96</div>
+        <div style="font-size:.68rem;color:var(--text3);margin-top:2px">重度用户</div>
+      </div>
+      <div style="background:rgba(168,85,247,.06);border:1px solid rgba(168,85,247,.2);border-radius:10px;padding:14px 10px;text-align:center">
+        <div style="font-size:.72rem;color:var(--text3);margin-bottom:4px">超出 SVIP · >P75</div>
+        <div style="font-size:1.2rem;font-weight:800;color:var(--purple)">按次</div>
+        <div style="font-size:.68rem;color:var(--text3);margin-top:2px">弹性消费</div>
+      </div>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="data-table" style="font-size:.82rem">
+        <thead><tr><th>付费点</th><th>单次成本</th><th>低频 ~60%</th><th>中频 ~20%</th><th>高频 ~20%</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:600;color:var(--text)">匹配/兴趣交友</td><td>¥0.1382</td><td>1–3 次</td><td>3–10 次</td><td>≥10 次</td></tr>
+          <tr><td style="font-weight:600;color:var(--text)">分身悄悄话</td><td>¥0.0090</td><td>1–5 次</td><td>5–20 次</td><td>≥20 次</td></tr>
+          <tr><td style="font-weight:600;color:var(--text)">Crush 攻略师</td><td>¥0.0414</td><td>1–5 次</td><td>5–9 次</td><td>≥9 次</td></tr>
+          <tr><td style="font-weight:600;color:var(--text)">复刻 Agent</td><td>¥0.2326</td><td>1–6 个</td><td>6–11 个</td><td>≥11 个</td></tr>
+          <tr><td style="font-weight:600;color:var(--text)">Agent 聊天</td><td>¥0.0048</td><td>1–10 次</td><td>10–30 次</td><td>≥30 次</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-top:12px;padding:10px 14px;background:rgba(59,130,246,.04);border-radius:8px;font-size:.78rem;color:var(--text2);line-height:1.6">
+      <strong>关键发现：</strong>各付费点均呈 60/20/20 长尾分布，验证了分位数阈值机制设计。低频占比 ~60% 为 Free 层级提供数据支撑。
     </div>
   </div>
 </section>
