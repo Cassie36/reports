@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>种子城市选择与抽样方案 · AI社交主动匹配内测</title>
+<style>
+:root{--ground:#ECEEF2;--surface:#fff;--surface2:#F5F7FA;--ink:#171A21;--ink2:#566070;--ink3:#8A93A3;
+--line:#DDE2EA;--line2:#EAEEF3;--masthead:#1A2030;--masthead2:#262E42;
+--rec:#C2610E;--recbg:#FBEFDF;--alt:#4E7FE0;--m:#3E86C9;--f:#D07AA6;--muted:#B7C0CD;--good:#2E8B6B;--radius:12px;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);
+font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+font-size:14.5px;line-height:1.65;-webkit-font-smoothing:antialiased;}
+.tnum{font-variant-numeric:tabular-nums;}
+.wrap{max-width:920px;margin:0 auto;padding:0 24px;}
+.masthead{background:linear-gradient(160deg,var(--masthead),var(--masthead2));color:#EAF0F8;padding:34px 0 28px;}
+.eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#8B97AC;margin:0 0 9px;}
+.masthead h1{font-size:27px;margin:0;font-weight:700;letter-spacing:-.01em;text-wrap:balance;}
+.masthead .meta{color:#9DA9BC;margin:11px 0 0;font-size:12.5px;}
+main{padding:0 0 72px;}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px;margin-top:20px;}
+.card.tldr{border-left:4px solid var(--rec);margin-top:-22px;position:relative;box-shadow:0 8px 26px rgba(20,26,40,.10);}
+h2{font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink3);margin:0 0 6px;font-weight:700;}
+.sub{font-size:12.5px;color:var(--ink3);margin:0 0 16px;}
+.tldr h2{color:var(--rec);}
+.tldr p{margin:0 0 10px;font-size:15px;}.tldr p:last-child{margin-bottom:0;}
+.tldr b{color:var(--ink);}
+.hl{background:linear-gradient(transparent 60%,#F6D9B8 60%);padding:0 2px;font-weight:600;}
+.big{font-weight:700;font-size:15.5px;}
+
+/* city bars */
+.cbar-row{display:grid;grid-template-columns:118px 1fr;align-items:center;gap:14px;margin:9px 0;}
+.cbar-label{font-size:13.5px;font-weight:600;display:flex;align-items:center;gap:7px;}
+.cbar-track{position:relative;background:var(--surface2);border-radius:6px;height:26px;overflow:hidden;}
+.cbar-fill{height:100%;border-radius:6px;background:var(--muted);}
+.cbar-fill.rec{background:var(--rec);} .cbar-fill.alt{background:var(--alt);}
+.cbar-val{position:absolute;right:9px;top:50%;transform:translateY(-50%);font-size:12.5px;font-weight:600;}
+.ctag{font-size:10px;padding:1px 6px;border-radius:10px;font-weight:700;}
+.ctag.rec{background:var(--recbg);color:var(--rec);} .ctag.alt{background:#E9F0FD;color:var(--alt);}
+.needline{position:relative;height:0;}
+.chart-note{font-size:12.5px;color:var(--ink2);margin-top:14px;padding-top:13px;border-top:1px solid var(--line2);}
+.chart-note b{color:var(--ink);}
+.needkey{display:inline-block;width:22px;border-top:2px dashed var(--rec);vertical-align:middle;margin-right:4px;}
+
+/* why cards */
+.whygrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.whycard{border:1px solid var(--line2);border-radius:10px;padding:15px;text-align:center;}
+.whycard.rec{border-color:var(--rec);background:var(--recbg);}
+.whycard .cn{font-size:15px;font-weight:700;margin-bottom:4px;}
+.whycard .mnum{font-size:26px;font-weight:700;letter-spacing:-.02em;}
+.whycard .mlab{font-size:11.5px;color:var(--ink2);margin-top:2px;}
+.whycard .rd{font-size:12px;color:var(--rec);font-weight:600;margin-top:6px;}
+.whycard.alt .mnum{color:var(--alt);}
+
+/* age */
+.agewrap{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.agecard{border:1px solid var(--line2);border-radius:10px;padding:14px 15px;}
+.agecard-head{font-size:13.5px;margin-bottom:10px;color:var(--ink2);}
+.agecard-head b{color:var(--ink);font-size:14.5px;}
+.ab-row{display:grid;grid-template-columns:48px 1fr 82px;align-items:center;gap:9px;margin:7px 0;}
+.ab-band{font-size:12px;color:var(--ink2);}
+.ab-track{position:relative;background:var(--surface2);border-radius:5px;height:20px;overflow:hidden;}
+.ab-fill{height:100%;background:var(--m);border-radius:5px;}
+.ab-val{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:11px;font-weight:600;color:#fff;}
+.ab-f{font-size:11.5px;color:var(--f);text-align:right;}
+.age-note{font-size:12.5px;color:var(--ink2);margin-top:14px;}
+.age-note b{color:var(--ink);}
+
+/* mbti */
+.mrow{display:grid;grid-template-columns:80px 1fr 52px;align-items:center;gap:10px;margin:8px 0;}
+.mlabel{font-size:13px;color:var(--ink2);}
+.mtrack{background:var(--surface2);border-radius:5px;height:18px;overflow:hidden;}
+.mfill{height:100%;background:#7C6BC4;border-radius:5px;}
+.mval{font-size:12.5px;font-weight:600;text-align:right;}
+.callout{background:var(--surface2);border-radius:10px;padding:14px 16px;margin-top:16px;font-size:13px;color:var(--ink2);}
+.callout b{color:var(--ink);}
+.callout .tag{display:inline-block;font-size:10.5px;font-weight:700;color:#7C6BC4;background:#EEEBF7;padding:1px 8px;border-radius:10px;margin-right:6px;}
+
+/* feasibility */
+.feas{display:flex;gap:14px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--line2);}
+.feas:last-child{border-bottom:none;}
+.fchk{color:var(--good);font-weight:700;flex:none;}
+.feas b{color:var(--ink);}
+.verdict{background:#F0F6F2;border:1px solid #C9E3D5;border-radius:10px;padding:14px 16px;margin-bottom:16px;font-size:14.5px;font-weight:600;}
+.verdict b{color:var(--good);}
+
+/* tables & quality */
+.tbl-wrap{overflow-x:auto;}
+table.dt{width:100%;border-collapse:collapse;font-size:12.5px;min-width:560px;}
+table.dt th{background:var(--surface2);text-align:left;padding:8px 11px;border-bottom:1px solid var(--line);font-size:11px;letter-spacing:.03em;color:var(--ink2);text-transform:uppercase;white-space:nowrap;}
+table.dt td{padding:8px 11px;border-bottom:1px solid var(--line2);}
+table.dt td.r{text-align:right;font-variant-numeric:tabular-nums;}
+table.dt tr:last-child td{border-bottom:none;}
+table.dt .mono{font-family:"SF Mono",ui-monospace,Menlo,monospace;color:var(--ink2);}
+.qlist{margin:0;padding-left:0;list-style:none;counter-reset:q;}
+.qlist li{position:relative;padding:9px 0 9px 30px;border-bottom:1px solid var(--line2);font-size:13px;color:var(--ink2);}
+.qlist li:last-child{border-bottom:none;}
+.qlist li::before{content:"!";position:absolute;left:0;top:9px;width:20px;height:20px;border-radius:50%;background:#FBEFDF;color:var(--rec);font-weight:700;font-size:12px;text-align:center;line-height:20px;}
+footer{border-top:1px solid var(--line);margin-top:36px;padding:20px 0 44px;color:var(--ink3);font-size:12px;}
+@media(max-width:680px){.whygrid,.agewrap{grid-template-columns:1fr}.cbar-row{grid-template-columns:90px 1fr}}
+@media print{.masthead{-webkit-print-color-adjust:exact;print-color-adjust:exact}.card{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header class="masthead"><div class="wrap">
+  <p class="eyebrow">SoulMate AI社交 · 主动匹配内测 · 种子抽样方案</p>
+  <h1>种子城市选择与抽样方案</h1>
+  <p class="meta">基础池 P1「分身复刻+社交」53.2万 · 窗口 近30天(06-03~07-02) · 生成 2026-07-03</p>
+</div></header>
+<main class="wrap">
+
+  <section class="card tldr">
+    <h2>核心结论</h2>
+    <p class="big">推荐 <span class="hl">北京 + 上海</span>,各抽 500 人(男女 5:5)—— 经测算<b>均可行</b>。</p>
+    <p>要让"主动匹配"跑起来、不被"匹配不到人"污染数据,种子必须<b>地理集中</b>。而<b>男性数量是硬约束</b>:全国仅北京(2,594)、上海(2,311)两城男性候选破 2,300,抽 250 男仍有约 10 倍冗余。</p>
+    <p><b>MBTI 是唯一真瓶颈</b>(全池仅 3 成填写):建议<b>不强制全员有 MBTI</b>,男性侧按"已填优先 + 稀缺型优先"排序、未填者补足名额,入选后引导补测。年龄层与性别均衡均无压力。</p>
+  </section>
+
+  <section class="card">
+    <h2>一 · 男性候选数(硬约束)</h2>
+    <p class="sub">同城匹配要求集中选城;而男性绝对量是最紧的资源,故按男性候选数看头部城市。</p>
+    <div class="cbar-row">
+          <div class="cbar-label">北京<span class="ctag rec">推荐</span></div>
+          <div class="cbar-track"><div class="cbar-fill rec" style="width:100.0%"></div>
+            <span class="cbar-val tnum">2,594</span></div>
+        </div><div class="cbar-row">
+          <div class="cbar-label">上海<span class="ctag rec">推荐</span></div>
+          <div class="cbar-track"><div class="cbar-fill rec" style="width:89.1%"></div>
+            <span class="cbar-val tnum">2,311</span></div>
+        </div><div class="cbar-row">
+          <div class="cbar-label">广州<span class="ctag alt">备选</span></div>
+          <div class="cbar-track"><div class="cbar-fill alt" style="width:87.9%"></div>
+            <span class="cbar-val tnum">2,279</span></div>
+        </div><div class="cbar-row">
+          <div class="cbar-label">杭州</div>
+          <div class="cbar-track"><div class="cbar-fill " style="width:62.1%"></div>
+            <span class="cbar-val tnum">1,612</span></div>
+        </div><div class="cbar-row">
+          <div class="cbar-label">成都</div>
+          <div class="cbar-track"><div class="cbar-fill " style="width:62.1%"></div>
+            <span class="cbar-val tnum">1,611</span></div>
+        </div><div class="cbar-row">
+          <div class="cbar-label">深圳</div>
+          <div class="cbar-track"><div class="cbar-fill " style="width:49.8%"></div>
+            <span class="cbar-val tnum">1,291</span></div>
+        </div><div class="cbar-row">
+          <div class="cbar-label">郑州</div>
+          <div class="cbar-track"><div class="cbar-fill " style="width:43.7%"></div>
+            <span class="cbar-val tnum">1,134</span></div>
+        </div><div class="cbar-row">
+          <div class="cbar-label">济南</div>
+          <div class="cbar-track"><div class="cbar-fill " style="width:40.4%"></div>
+            <span class="cbar-val tnum">1,049</span></div>
+        </div><div class="cbar-row">
+          <div class="cbar-label">天津</div>
+          <div class="cbar-track"><div class="cbar-fill " style="width:39.9%"></div>
+            <span class="cbar-val tnum">1,034</span></div>
+        </div><div class="cbar-row">
+          <div class="cbar-label">南京</div>
+          <div class="cbar-track"><div class="cbar-fill " style="width:38.9%"></div>
+            <span class="cbar-val tnum">1,010</span></div>
+        </div><div class="cbar-row">
+          <div class="cbar-label">西安</div>
+          <div class="cbar-track"><div class="cbar-fill " style="width:36.8%"></div>
+            <span class="cbar-val tnum">954</span></div>
+        </div><div class="cbar-row">
+          <div class="cbar-label">重庆</div>
+          <div class="cbar-track"><div class="cbar-fill " style="width:33.9%"></div>
+            <span class="cbar-val tnum">880</span></div>
+        </div>
+    <div class="chart-note"><span class="needkey"></span><b>每城需 250 男</b>(500 人 5:5)。北京/上海远超需求线(10.4× / 9.2× 冗余);越往下男性越薄,靠后城市抽 250 男已吃力 —— 这就是"必须选头部城市"的原因。集中度:Top3 仅占全池 14.2%,分布分散。</div>
+  </section>
+
+  <section class="card">
+    <h2>二 · 为什么是京沪(男性冗余)</h2>
+    <div class="whygrid">
+      <div class="whycard rec"><div class="cn">北京</div><div class="mnum tnum">2,594</div><div class="mlab">男性候选</div><div class="rd">10.4× 冗余</div></div>
+      <div class="whycard rec"><div class="cn">上海</div><div class="mnum tnum">2,311</div><div class="mlab">男性候选</div><div class="rd">9.2× 冗余</div></div>
+      <div class="whycard alt"><div class="cn">广州(备选)</div><div class="mnum tnum">2,279</div><div class="mlab">男性候选</div><div class="rd">男占比 10.7% 最高</div></div>
+    </div>
+    <div class="chart-note">只选 1 城 → 北京(男性量、总量双第一);要第三城 → 广州。女性侧各城都远超需求,无压力。</div>
+  </section>
+
+  <section class="card">
+    <h2>三 · 城市画像 · 性别 × 年龄层</h2>
+    <p class="sub">柱为男性(约束侧)各年龄层人数,右侧标注女性;已排除未成年。</p>
+    <div class="agewrap"><div class="agecard">
+          <div class="agecard-head"><b>北京</b> · 成年男可抽池 <span class="tnum">2,514</span></div>
+          <div class="ab-row">
+              <div class="ab-band">18-24</div>
+              <div class="ab-track"><div class="ab-fill" style="width:100.0%"></div><span class="ab-val tnum">男 955</span></div>
+              <div class="ab-f tnum">女 9,003</div>
+            </div><div class="ab-row">
+              <div class="ab-band">25-30</div>
+              <div class="ab-track"><div class="ab-fill" style="width:91.8%"></div><span class="ab-val tnum">男 877</span></div>
+              <div class="ab-f tnum">女 8,468</div>
+            </div><div class="ab-row">
+              <div class="ab-band">31-40</div>
+              <div class="ab-track"><div class="ab-fill" style="width:55.2%"></div><span class="ab-val tnum">男 527</span></div>
+              <div class="ab-f tnum">女 5,840</div>
+            </div><div class="ab-row">
+              <div class="ab-band">>40</div>
+              <div class="ab-track"><div class="ab-fill" style="width:16.2%"></div><span class="ab-val tnum">男 155</span></div>
+              <div class="ab-f tnum">女 1,242</div>
+            </div>
+        </div><div class="agecard">
+          <div class="agecard-head"><b>上海</b> · 成年男可抽池 <span class="tnum">2,261</span></div>
+          <div class="ab-row">
+              <div class="ab-band">18-24</div>
+              <div class="ab-track"><div class="ab-fill" style="width:80.9%"></div><span class="ab-val tnum">男 773</span></div>
+              <div class="ab-f tnum">女 7,277</div>
+            </div><div class="ab-row">
+              <div class="ab-band">25-30</div>
+              <div class="ab-track"><div class="ab-fill" style="width:83.4%"></div><span class="ab-val tnum">男 796</span></div>
+              <div class="ab-f tnum">女 8,571</div>
+            </div><div class="ab-row">
+              <div class="ab-band">31-40</div>
+              <div class="ab-track"><div class="ab-fill" style="width:55.2%"></div><span class="ab-val tnum">男 527</span></div>
+              <div class="ab-f tnum">女 6,022</div>
+            </div><div class="ab-row">
+              <div class="ab-band">>40</div>
+              <div class="ab-track"><div class="ab-fill" style="width:17.3%"></div><span class="ab-val tnum">男 165</span></div>
+              <div class="ab-f tnum">女 1,261</div>
+            </div>
+        </div></div>
+    <p class="age-note">男性最薄的是 <b>&gt;40 层(北京 155 / 上海 165)</b>,每层抽 40-70 人仍够;女性各层是男性的约 9-10 倍,完全无压力。年龄覆盖面足够宽。</p>
+    <div class="tbl-wrap" style="margin-top:16px"><table class="dt">
+      <thead><tr><th>城市</th><th>性别</th><th>18-24</th><th>25-30</th><th>31-40</th><th>&gt;40</th><th>成年合计</th></tr></thead>
+      <tbody><tr><td>北京</td><td>女</td><td class="r">9,003</td><td class="r">8,468</td><td class="r">5,840</td><td class="r">1,242</td><td class="r"><b>24,553</b></td></tr><tr><td>北京</td><td>男</td><td class="r">955</td><td class="r">877</td><td class="r">527</td><td class="r">155</td><td class="r"><b>2,514</b></td></tr><tr><td>上海</td><td>女</td><td class="r">7,277</td><td class="r">8,571</td><td class="r">6,022</td><td class="r">1,261</td><td class="r"><b>23,131</b></td></tr><tr><td>上海</td><td>男</td><td class="r">773</td><td class="r">796</td><td class="r">527</td><td class="r">165</td><td class="r"><b>2,261</b></td></tr></tbody>
+    </table></div>
+  </section>
+
+  <section class="card">
+    <h2>四 · 城市画像 · MBTI 覆盖</h2>
+    <p class="sub">MBTI 填写率(占该群体人数)</p>
+    <div class="mrow"><div class="mlabel">北京 男</div>
+          <div class="mtrack"><div class="mfill" style="width:36.1%"></div></div>
+          <div class="mval tnum">36.1%</div></div><div class="mrow"><div class="mlabel">上海 男</div>
+          <div class="mtrack"><div class="mfill" style="width:34.5%"></div></div>
+          <div class="mval tnum">34.5%</div></div><div class="mrow"><div class="mlabel">北京 女</div>
+          <div class="mtrack"><div class="mfill" style="width:23.5%"></div></div>
+          <div class="mval tnum">23.5%</div></div><div class="mrow"><div class="mlabel">上海 女</div>
+          <div class="mtrack"><div class="mfill" style="width:23.3%"></div></div>
+          <div class="mval tnum">23.3%</div></div>
+    <div class="callout"><span class="tag">覆盖</span>京沪两城两性别 <b>16 型均有人</b>、无脏值。<b>NF/NT 主导</b>(北京女 top3:ENFP 807 / INFJ 664 / INFP 651),<b>S+P 型稀薄</b>(北京男 ISTP 仅 12、ESFP 22)—— 这是测测用户的结构特征,非抽样问题。<br><br><span class="tag">瓶颈</span>若<b>强制全员有 MBTI</b>,北京男候选骤降到 <b>936</b>(3.7× 冗余,叠加年龄分层后 &gt;40 层会很紧)。<b>建议不强制</b>:已填优先 + 稀缺型优先,未填者补名额、入选后补测。</div>
+  </section>
+
+  <section class="card">
+    <h2>五 · 可行性结论</h2>
+    <div class="verdict">✓ 北京、上海各抽 <b>500 人(男女 5:5)</b>均可行。</div>
+    <div class="feas"><span class="fchk">✓</span><div><b>男女 5:5</b> —— 北京成年男 2,514 ÷ 250 = 10× 冗余,稳。</div></div>
+    <div class="feas"><span class="fchk">✓</span><div><b>年龄层铺开</b> —— 男性最薄的 &gt;40 层有 155 人,每层抽 40-70 人无压力。</div></div>
+    <div class="feas"><span class="fchk">⚠</span><div><b>MBTI 是唯一瓶颈</b> —— 不强制全员;男性按"已填优先 + 稀缺型优先"排序,未填补足、入选后引导补测。</div></div>
+  </section>
+
+  <section class="card">
+    <h2>六 · 数据质量与口径备注</h2>
+    <ul class="qlist"><li>city 口径 = 用户最近一次活跃时的定位城市,天然适配同城匹配;但差旅/搬迁会漂移,发名单当天用最新分区重跑一次。</li><li>档案自填现居地不可用作主口径(默认值“北京”严重堆积污染),产品若要展示现居地需先做默认值剔除与标准化。</li><li>MBTI 近 7 成缺失;内测如需精准 MBTI 配对,建议引导入选者补测。</li><li>未成年人已在抽样 SQL 硬性排除(京沪约 3%),发名单前建议再过一遍实名年龄核验。</li><li>海外用户 2.9%、城市未知 0.1%、性别未知 0.08%,均不入京沪名单,无影响。</li><li>私信数含审核拒绝消息,发名单前建议对高拒绝率用户二次过滤。</li></ul>
+  </section>
+
+</main>
+<footer><div class="wrap">数据与口径源自 data-analyst《种子城市选择与抽样方案报告.md》· Doris cece_dwh · 07-02 快照 · 近30天口径</div></footer>
+</body>
+</html>
